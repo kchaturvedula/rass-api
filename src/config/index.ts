@@ -7,7 +7,9 @@ export function loadConfig(): RassConfig {
   const config: RassConfig = {
     backend: (process.env.RASS_BACKEND as 'simulated' | 'opensearch') || 'simulated',
     server: {
-      host: process.env.HOST || 'localhost',
+      // Bind to 0.0.0.0 by default so the service is reachable from outside
+      // the container / LXC environment. Local development is still fine.
+      host: process.env.HOST || '0.0.0.0',
       port: parseInt(process.env.PORT || '3000')
     }
   };

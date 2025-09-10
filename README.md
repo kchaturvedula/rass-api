@@ -3,6 +3,24 @@ Reference Specification for the RASS Server
 
 The RASS philosophy centers on decoupling document storage from advanced semantic search, allowing organizations to maintain full control over their original data while enabling powerful, context-aware retrieval capabilities. Traditional search systems often require applications to tightly integrate with specific storage engines or indexing strategies, leading to complexity, vendor lock-in, and challenges in scaling or evolving the underlying architecture. By introducing a minimalistic, API-driven layer that handles vectorization and semantic search independently of the application's own storage, RASS empowers teams to innovate and adapt without sacrificing data ownership or flexibility. This approach is essential for organizations that need to support diverse applications, future-proof their infrastructure, and deliver fast, relevant search experiences without being constrained by the limitations of any single backend technology.
 
+## Deployment
+
+The RASS API is deployed automatically to `rass.opensource.mieweb.org` using Proxmox LaunchPad. 
+
+### Required GitHub Secrets
+
+Configure these secrets in your repository (Settings → Secrets and variables → Actions):
+
+- `PROXMOX_USERNAME`: Your Proxmox username
+- `PROXMOX_PASSWORD`: Your Proxmox password  
+- `GH_PAT`: GitHub Personal Access Token with `manage_runners:org` permission
+
+The deployment workflow automatically:
+- Creates a container on push to main branch
+- Installs Docker and dependencies
+- Runs the full stack (RASS API + OpenSearch) via Docker Compose
+- Makes the application available at https://rass.opensource.mieweb.org
+
 ## Features
 
 ✅ **Pluggable Backend Architecture** - Switch between simulated and OpenSearch backends via configuration  

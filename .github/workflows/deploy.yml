@@ -19,6 +19,7 @@ jobs:
           proxmox_username: ${{ secrets.PROXMOX_USERNAME }}
           proxmox_password: ${{ secrets.PROXMOX_PASSWORD }}
           github_pat: ${{ secrets.GH_PAT }}
+          http_port: 3000
 
   manage-container:
     runs-on: self-hosted
@@ -30,6 +31,7 @@ jobs:
           proxmox_password: ${{ secrets.PROXMOX_PASSWORD }}
           github_pat: ${{ secrets.GH_PAT }}
           http_port: 3000
-          services: '["docker"]'
-          root_start_command: docker-compose up -d
-          container_env_vars: '{"RASS_BACKEND": "opensearch", "OPENSEARCH_URL": "http://opensearch:9200", "OPENSEARCH_INDEX": "rass-documents", "HOST": "0.0.0.0", "PORT": "3000", "LOG_LEVEL": "info"}'
+          install_command: npm install
+          build_command: npm run build  
+          start_command: npm start
+          runtime_language: nodejs

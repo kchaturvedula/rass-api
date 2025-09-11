@@ -19,7 +19,7 @@ The deployment workflow automatically:
 - Creates a container on push to main branch
 - Installs Docker and dependencies
 - Runs the full stack (RASS API + OpenSearch) via Docker Compose
-- Makes the application available at https://rass.opensource.mieweb.org
+- Makes the application available at https://kchaturvedula-rass-api-main.opensource.mieweb.org/
 
 ## Features
 

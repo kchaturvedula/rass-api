@@ -1,9 +1,9 @@
 name: RASS API Proxmox Container Management
 
 on:
-  push:
-  create:
-  delete:
+  push:     # Updates existing containers
+  create:   # Creates containers for new branches  
+  delete:   # Removes containers when branches are deleted
 
 jobs:
   setup-runner:
@@ -14,7 +14,7 @@ jobs:
           sudo apt update
           sudo apt install -y sshpass jq
 
-      - uses: maxklema/proxmox-launchpad@main
+      - uses: maxklema/proxmox-launchpad@v0.0.7
         with:
           proxmox_username: ${{ secrets.PROXMOX_USERNAME }}
           proxmox_password: ${{ secrets.PROXMOX_PASSWORD }}
@@ -24,7 +24,7 @@ jobs:
     runs-on: self-hosted
     needs: setup-runner
     steps:
-      - uses: maxklema/proxmox-launchpad@main
+      - uses: maxklema/proxmox-launchpad@v0.0.7
         with:
           proxmox_username: ${{ secrets.PROXMOX_USERNAME }}
           proxmox_password: ${{ secrets.PROXMOX_PASSWORD }}
@@ -38,5 +38,5 @@ jobs:
           build_command: "npm run build"
           start_command: "npm start"
           runtime_language: "nodejs"
-          # Environment variables
-          container_env_vars: '{"NODE_ENV": "production", "PORT": "3000"}'
+          # Environment variables - Added HOST=0.0.0.0 for external access
+          container_env_vars: '{"NODE_ENV": "production", "PORT": "3000", "HOST": "0.0.0.0"}'
